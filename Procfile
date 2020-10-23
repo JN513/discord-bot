@@ -1,1 +1,1 @@
-discord-bot: python "main.py"
+code-breaker-bot: python "main.py"
