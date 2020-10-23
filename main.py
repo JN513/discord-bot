@@ -2,7 +2,6 @@ import os
 import sys
 import discord
 from discord.ext.commands.core import guild_only
-from dotenv import load_dotenv
 from discord.ext import commands
 from core import defs
 
