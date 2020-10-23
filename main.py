@@ -57,8 +57,8 @@ class Bot(discord.Client):
                     color=COR,
                     description="Sai do canal de voz e a musica parou!"
                 )
-                voice_client = client.voice_client_in(message.server)
-                await client.send_message(message.channel, embed=mscleave)
+                voice_client = self.voice_client_in(message.server)
+                await message.channel.send(embed=mscleave)
                 await voice_client.disconnect()
             except AttributeError:
                 await message.channel.send("Não estou em nenhum canal de voz")
