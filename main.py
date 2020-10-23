@@ -36,7 +36,7 @@ class Bot(discord.Client):
                 f'Olá, vc pediu ajuda, segue ai uma lista de comando, para te ajudar'
             )
             await message.channel.send(
-                f'Te mandei no privado @{message.author.name}, da uma olhadinha lá'
+                f'Te mandei no privado @{message.author}, da uma olhadinha lá'
             )
 
 bot = Bot()
