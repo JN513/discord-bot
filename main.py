@@ -67,9 +67,9 @@ class Bot(discord.Client):
         if message.content.startswith('$play'):
             try:
                 yt_url = message.content[6:]
-                if bot.is_voice_connected(message.server):
+                if self.is_voice_connected(message.server):
                     try:
-                        voice = bot.voice_client_in(message.server)
+                        voice = self.voice_client_in(message.server)
                         players[message.server.id].stop()
                         player = await voice.create_ytdl_player('ytsearch: {}'.format(yt_url))
                         players[message.server.id] = player
@@ -89,10 +89,10 @@ class Bot(discord.Client):
                     except Exception as e:
                         await message.channel.send("Error: [{error}]".format(error=e))
 
-                if not bot.is_voice_connected(message.server):
+                if not self.is_voice_connected(message.server):
                     try:
                         channel = message.author.voice.voice_channel
-                        voice = await bot.join_voice_channel(channel)
+                        voice = await self.join_voice_channel(channel)
                         player = await voice.create_ytdl_player('ytsearch: {}'.format(yt_url))
                         players[message.server.id] = player
                         player.start()
