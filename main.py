@@ -109,7 +109,9 @@ class Bot(discord.Client):
                 color=self.COR,
                 description="- Dev Web = 🐤\n"
                             "- Dev Mobile  =  📘 \n"
-                            "- Cientista de dados  = 📙",)
+                            "- Cientista de dados  = 📙\n",
+                            "- Hacker = 💻"
+                            )
 
             botmsg = await message.channel.send(embed=embed1)
 
