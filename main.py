@@ -37,11 +37,6 @@ class Bot(discord.Client):
             await message.channel.send(
                 f'Te mandei no privado @{message.user}, da uma olhadinha lá'
             )
-        elif '$' in message.content:
-            await message.channel.send(
-                'Comando invalido! Digite $help para receber ajuda'
-            )
-
 
 bot = Bot()
 bot.run(token)
