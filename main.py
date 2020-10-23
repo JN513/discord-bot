@@ -39,7 +39,7 @@ class Bot(discord.Client):
             )
         elif '$' in message.content:
             await message.channel.send(
-                'Comando invalido!'
+                'Comando invalido! Digite $help para receber ajuda'
             )
 
 
