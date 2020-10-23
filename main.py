@@ -113,31 +113,28 @@ class Bot(discord.Client):
             except Exception as e:
                 await client.send_message(message.channel, "Error: [{error}]".format(error=e))
 
-
-
-
-    if message.content.startswith('$pause'):
-        try:
-            mscpause = discord.Embed(
-                title="\n",
-                color=COR,
-                description="Musica pausada com sucesso!"
-            )
-            await client.send_message(message.channel, embed=mscpause)
-            players[message.server.id].pause()
-        except Exception as error:
-            await client.send_message(message.channel, "Error: [{error}]".format(error=error))
-    if message.content.startswith('!resume'):
-        try:
-            mscresume = discord.Embed(
-                title="\n",
-                color=COR,
-                description="Musica pausada com sucesso!"
-            )
-            await client.send_message(message.channel, embed=mscresume)
-            players[message.server.id].resume()
-        except Exception as error:
-            await client.send_message(message.channel, "Error: [{error}]".format(error=error))
+        if message.content.startswith('$pause'):
+            try:
+                mscpause = discord.Embed(
+                    title="\n",
+                    color=COR,
+                    description="Musica pausada com sucesso!"
+                )
+                await message.channel.send(embed=mscpause)
+                players[message.server.id].pause()
+            except Exception as error:
+                await message.channel.send("Error: [{error}]".format(error=error))
+        if message.content.startswith('$resume'):
+            try:
+                mscresume = discord.Embed(
+                    title="\n",
+                    color=COR,
+                    description="Musica pausada com sucesso!"
+                )
+                await message.channel.send(embed=mscresume)
+                players[message.server.id].resume()
+            except Exception as error:
+                await message.channel.send("Error: [{error}]".format(error=error))
 
 bot = Bot()
 bot.run(token)
