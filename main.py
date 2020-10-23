@@ -109,8 +109,8 @@ class Bot(discord.Client):
                 color=self.COR,
                 description="- Dev Web = 🐤\n"
                             "- Dev Mobile  =  📘 \n"
-                            "- Cientista de dados  = 📙\n",
-                            "- Hacker = 💻"
+                            "- Cientista de dados  = 📙\n"
+                            "- Hacker = 💻\n",
                             )
 
             botmsg = await message.channel.send(embed=embed1)
@@ -118,6 +118,7 @@ class Bot(discord.Client):
             await botmsg.add_reaction("🐤")
             await botmsg.add_reaction("📘")
             await botmsg.add_reaction("📙")
+            await botmsg.add_reaction("💻")
 
 
             self.msg_id = botmsg.id
@@ -165,6 +166,11 @@ class Bot(discord.Client):
             await user.add_roles(role)
             print("add")
 
+        if reaction.emoji == "💻" and msg.id == self.msg_id: #and user == msg_user:
+            role = discord.utils.find(lambda r: r.name == "Hacker", msg.guild.roles)
+            await user.add_roles(role)
+            print("add")
+
     async def on_reaction_remove(self, reaction, user):
         msg = reaction.message
 
@@ -180,6 +186,10 @@ class Bot(discord.Client):
 
         if reaction.emoji == "📙" and msg.id == msg_id: #and user == msg_user:
             role = discord.utils.find(lambda r: r.name == "Cientista de dados", msg.guild.roles)
+            await user.remove_roles(role)
+            print("remove")
+        if reaction.emoji == "💻" and msg.id == self.msg_id: #and user == msg_user:
+            role = discord.utils.find(lambda r: r.name == "Hacker", msg.guild.roles)
             await user.remove_roles(role)
             print("remove")
 
