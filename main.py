@@ -67,9 +67,9 @@ class Bot(discord.Client):
         if message.content.startswith('$play'):
             try:
                 yt_url = message.content[6:]
-                if client.is_voice_connected(message.server):
+                if bot.is_voice_connected(message.server):
                     try:
-                        voice = client.voice_client_in(message.server)
+                        voice = bot.voice_client_in(message.server)
                         players[message.server.id].stop()
                         player = await voice.create_ytdl_player('ytsearch: {}'.format(yt_url))
                         players[message.server.id] = player
@@ -85,14 +85,14 @@ class Bot(discord.Client):
                         mscemb.add_field(name="Duraçao:", value="`{}`".format(player.uploadeder))
                         mscemb.add_field(name="Likes:", value="`{}`".format(player.likes))
                         mscemb.add_field(name="Deslikes:", value="`{}`".format(player.dislikes))
-                        await client.send_message(message.channel, embed=mscemb)
+                        await message.channel.send(embed=mscemb)
                     except Exception as e:
-                        await client.send_message(message.server, "Error: [{error}]".format(error=e))
+                        await message.channel.send("Error: [{error}]".format(error=e))
 
-                if not client.is_voice_connected(message.server):
+                if not bot.is_voice_connected(message.server):
                     try:
                         channel = message.author.voice.voice_channel
-                        voice = await client.join_voice_channel(channel)
+                        voice = await bot.join_voice_channel(channel)
                         player = await voice.create_ytdl_player('ytsearch: {}'.format(yt_url))
                         players[message.server.id] = player
                         player.start()
@@ -107,11 +107,11 @@ class Bot(discord.Client):
                         mscemb2.add_field(name="Duraçao:", value="`{}`".format(player.duration))
                         mscemb2.add_field(name="Likes:", value="`{}`".format(player.likes))
                         mscemb2.add_field(name="Deslikes:", value="`{}`".format(player.dislikes))
-                        await client.send_message(message.channel, embed=mscemb2)
+                        await message.channel.send(embed=mscemb2)
                     except Exception as error:
                         await message.channel.send("Error: [{error}]".format(error=error))
             except Exception as e:
-                await client.send_message(message.channel, "Error: [{error}]".format(error=e))
+                await message.channel.send("Error: [{error}]".format(error=e))
 
         if message.content.startswith('$pause'):
             try:
