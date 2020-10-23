@@ -25,9 +25,23 @@ class Bot(discord.Client):
         )
 
     async def on_message(self, message):
-        print(message.content)
+
         if message.content.startswith('$ola'):
             await message.channel.send("Olá tudo bem!")
+        
+        elif message.content.startswith('$help'):
+            await message.user.create_dm()
+            await message.user.dm_channel.send(
+                f'Olá, vc pediu ajuda, segue ai uma lista de comando, para te ajudar'
+            )
+            await message.channel.send(
+                f'Te mandei no privado @{message.user}, da uma olhadinha lá'
+            )
+        else '$' in message.content:
+            await message.channel.send(
+                'Comando invalido!'
+            )
+
 
 bot = Bot()
 bot.run(token)
