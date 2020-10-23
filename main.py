@@ -37,7 +37,7 @@ class Bot(discord.Client):
             await message.channel.send(
                 f'Te mandei no privado @{message.user}, da uma olhadinha lá'
             )
-        else '$' in message.content:
+        elif '$' in message.content:
             await message.channel.send(
                 'Comando invalido!'
             )
