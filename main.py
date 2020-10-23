@@ -10,6 +10,7 @@ token = 'NzY5MTc0MzUzNjgxMTg2ODQ3.X5LLcA.wS1kqWBrwxiChZPYxTpmG73oozM'
 
 class Bot(discord.Client):
     async def on_ready(self):
+        await bot.change_presence(activity=discord.Game(name="Coding Python!"))
         print(f'{self.user} has connected to Discord!')
 
     async def on_member_join(self, member):
@@ -30,12 +31,12 @@ class Bot(discord.Client):
             await message.channel.send("Olá tudo bem!")
         
         elif message.content.startswith('$help'):
-            await message.member.create_dm()
-            await message.member.dm_channel.send(
+            await message.author.create_dm()
+            await message.author.dm_channel.send(
                 f'Olá, vc pediu ajuda, segue ai uma lista de comando, para te ajudar'
             )
             await message.channel.send(
-                f'Te mandei no privado @{message.member.name}, da uma olhadinha lá'
+                f'Te mandei no privado @{message.author.name}, da uma olhadinha lá'
             )
 
 bot = Bot()
