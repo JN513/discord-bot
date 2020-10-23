@@ -1,1 +1,1 @@
-discord-bot: python "musica.py"
+discord-bot: python "main.py"
