@@ -24,18 +24,18 @@ class Bot(discord.Client):
             f'Olá {member.name}, Voce foi removido do servidor por ter cometido alguma inflação.'
         )
 
-    async def on_message(self, message):
+    async def on_message(self, message, member):
 
         if message.content.startswith('$ola'):
             await message.channel.send("Olá tudo bem!")
         
         elif message.content.startswith('$help'):
-            await message.user.create_dm()
-            await message.user.dm_channel.send(
+            await member.create_dm()
+            await member.dm_channel.send(
                 f'Olá, vc pediu ajuda, segue ai uma lista de comando, para te ajudar'
             )
             await message.channel.send(
-                f'Te mandei no privado @{message.user}, da uma olhadinha lá'
+                f'Te mandei no privado @{member.name}, da uma olhadinha lá'
             )
 
 bot = Bot()
