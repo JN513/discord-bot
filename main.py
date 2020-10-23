@@ -4,7 +4,6 @@ import discord
 from discord.ext.commands.core import guild_only
 from discord.ext import commands
 from core import defs
-import youtube_dl
 
 #bot = commands.Bot(command_prefix="$")
 token = 'NzY5MTc0MzUzNjgxMTg2ODQ3.X5LLcA.wS1kqWBrwxiChZPYxTpmG73oozM'
