@@ -4,6 +4,7 @@ import discord
 from discord.ext.commands.core import guild_only
 from discord.ext import commands
 from core import defs
+import requests
 
 #bot = commands.Bot(command_prefix="$")
 token = 'NzY5MTc0MzUzNjgxMTg2ODQ3.X5LLcA.wS1kqWBrwxiChZPYxTpmG73oozM'
@@ -32,10 +33,10 @@ class Bot(discord.Client):
 
     async def on_message(self, message):
 
-        if message.content.startswith('$ola'):
+        if message.content.lower().startswith('$ola'):
             await message.channel.send("Olá tudo bem!")
         
-        if message.content.startswith('$help'):
+        if message.content.lower().startswith('$help'):
             await message.author.create_dm()
             await message.author.dm_channel.send(
                 f'Olá, vc pediu ajuda, segue ai uma lista de comando, para te ajudar'
@@ -43,7 +44,7 @@ class Bot(discord.Client):
             await message.channel.send(
                 f'Te mandei uma menssagem no privado {message.author.name}, da uma olhadinha lá'
             )
-        if message.content.startswith('$entrar'):
+        if message.content.lower().startswith('$entrar'):
             try:
                 channel = message.author.voice.channel
                 await channel.connect()
@@ -52,7 +53,7 @@ class Bot(discord.Client):
             except Exception as error:
                 await message.channel.send("Ein Error: ```{error}```".format(error=error))
 
-        if message.content.startswith('$sair'):
+        if message.content.lower().startswith('$sair'):
             try:
                 mscleave = discord.Embed(
                     title="\n",
@@ -67,7 +68,7 @@ class Bot(discord.Client):
                 await message.channel.send("Não estou em nenhum canal de voz")
             except Exception as Hugo:
                 await message.channel.send("Ein Error: ```{error}```".format(error=Hugo))
-        if message.content.startswith('$play'):
+        if message.content.lower().startswith('$play'):
             try:
                 yt_url = message.content[6:]
                 try:
@@ -103,6 +104,29 @@ class Bot(discord.Client):
             except Exception as e:
                 await message.channel.send("Error: [{error}]".format(error=e))
 
+        if message.content.lower().startswith('$pause'):
+            try:
+                mscpause = discord.Embed(
+                    title="\n",
+                    color=self.COR,
+                    description="Musica pausada com sucesso!"
+                )
+                await message.channel.send(embed=mscpause)
+                players[message.server.id].pause()
+            except Exception as error:
+                await message.channel.send("Error: [{error}]".format(error=error))
+        if message.content.lower().startswith('$resume'):
+            try:
+                mscresume = discord.Embed(
+                    title="\n",
+                    color=self.COR,
+                    description="Musica pausada com sucesso!"
+                )
+                await message.channel.send(embed=mscresume)
+                players[message.server.id].resume()
+            except Exception as error:
+                await message.channel.send("Error: [{error}]".format(error=error))
+
         if message.content.lower().startswith("$lol"):
             embed1 =discord.Embed(
                 title="Escolha sua area!",
@@ -124,30 +148,22 @@ class Bot(discord.Client):
             self.msg_id = botmsg.id
 
             self.msg_user = message.author
+    
+        if message.content.lower().startswith("$gitstats"):
+            menssagem = message.content.split(" ")
+            if len(menssagem) > 2:
+                await message.channel.send("Mais parametros que o esperado. Digite '$help' para receber ajuda.")
+            elif len(menssagem) == 1:
+                await message.channel.send("Menos parametros que o esperado. Digite '$help' para receber ajuda.")
+            else:
+                user = str(menssagem[1])
+                e = discord.Embed(
+                    title=f"Status de {user} no Git-Hub",
+                    color=self.COR,
+                    description=f"https://github-readme-stats.vercel.app/api?username={user}&show_icons=true&hide_border=true&count_private=true"
+                )
+                await message.channel.send(embed=e)
 
-        if message.content.startswith('$pause'):
-            try:
-                mscpause = discord.Embed(
-                    title="\n",
-                    color=self.COR,
-                    description="Musica pausada com sucesso!"
-                )
-                await message.channel.send(embed=mscpause)
-                players[message.server.id].pause()
-            except Exception as error:
-                await message.channel.send("Error: [{error}]".format(error=error))
-        if message.content.startswith('$resume'):
-            try:
-                mscresume = discord.Embed(
-                    title="\n",
-                    color=self.COR,
-                    description="Musica pausada com sucesso!"
-                )
-                await message.channel.send(embed=mscresume)
-                players[message.server.id].resume()
-            except Exception as error:
-                await message.channel.send("Error: [{error}]".format(error=error))
-        
     async def on_reaction_add(self, reaction, user):
         msg = reaction.message
 
